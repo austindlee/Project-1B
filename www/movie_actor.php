@@ -48,26 +48,22 @@ function checkForm() {
   </div>
   <div class="form_wrapper">
     <form id="page_form" name="addMARelationship" action="" method="GET" onsubmit="return checkForm()">
-      <div class="movieselect">
-        <label for="movies">Movie</label><br />
-        <select name="movie_select">
-          <?php
-            while($row = mysql_fetch_assoc($movies)) {
-              echo "<option value=$row[id]>" . $row['title'] . " (" . $row['year'] . ")" . "</option>";
-            }
-          ?>
-        </select>
-      </div>
-      <div class="actorselect">
-        <label for="actors">Actor</label><br />
-        <select name="actor_select">
-          <?php
-            while($row = mysql_fetch_assoc($actors)) {
-              echo "<option value=$row[id]>" . $row['first'] . " " . $row['last'] . " (" . $row['dob'] . ")" . "</option>";
-            }
-          ?>
-        </select>
-      </div>
+      <label for="movies">Movie</label><br />
+      <select class="selects" name="movie_select">
+        <?php
+          while($row = mysql_fetch_assoc($movies)) {
+            echo "<option value=$row[id]>" . $row['title'] . " (" . $row['year'] . ")" . "</option>";
+          }
+        ?>
+      </select><br />
+      <label for="actors">Actor</label><br />
+      <select class="selects" name="actor_select">
+        <?php
+          while($row = mysql_fetch_assoc($actors)) {
+            echo "<option value=$row[id]>" . $row['first'] . " " . $row['last'] . " (" . $row['dob'] . ")" . "</option>";
+          }
+        ?>
+      </select>
       <div>
         Role<br />
         <input type="text" maxlength="50" name="role" placeholder="Enter actor role in movie" />

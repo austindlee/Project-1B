@@ -10,11 +10,13 @@
 #page_form {
   width: 100%;
 }
-
+.selects {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 label {
   margin-bottom: 20px;
 }
-
 input {
   margin-top: 10px;
   margin-bottom: 10px;

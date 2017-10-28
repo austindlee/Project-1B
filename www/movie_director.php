@@ -43,7 +43,7 @@ function checkForm() {
     <form id="page_form" name="addMDRelationship" action="" method="GET" onsubmit="return checkForm()">
       <div class="movieselect">
         <label for="movies">Movie</label><br />
-        <select name="movie_select">
+        <select class="selects" name="movie_select">
           <?php
             while($row = mysql_fetch_assoc($movies)) {
               echo "<option value=$row[id]>" . $row['title'] . " (" . $row['year'] . ")" . "</option>";
@@ -53,7 +53,7 @@ function checkForm() {
       </div>
       <div class="directorselect">
         <label for="directors">Director</label><br />
-        <select name="director_select">
+        <select class="selects" name="director_select">
           <?php
             while($row = mysql_fetch_assoc($directors)) {
               echo "<option value=$row[id]>" . $row['first'] . " " . $row['last'] . " (" . $row['dob'] . ")" . "</option>";
