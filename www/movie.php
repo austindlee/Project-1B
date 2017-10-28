@@ -39,22 +39,22 @@ function checkForm() {
     </div>
     <div class="form_wrapper">
       <form id="page_form" name="addMovie" action="" method="GET" onsubmit="return checkForm()">
-        Title:<br>
+        <label for="title">Title:</label><br />
         <input type="text" name="title" placeholder="Movie Title" maxlength="100">
         <br>
-        Year:<br>
+        <label for="year">Year:</label><br />
         <input type="number" name="year" placeholder="Year Released" value="0">
         <br />
-        Rating:<br />
+        <label for="rating">Rating:</label><br />
         <input type="radio" name="rating" value="G" checked>G<br/>
         <input type="radio" name="rating" value="PG">PG<br/>
         <input type="radio" name="rating" value="PG-13">PG-13<br/>
         <input type="radio" name="rating" value="R">R<br/>
         <input type="radio" name="rating" value="NC-17">NC-17<br/>
-        Company:<br>
+        <label for="company">Company:</label><br />
         <input type="text" name="company" placeholder="Company Name" maxlength="50">
         <br />
-        Genre(s): <br/>
+        <label for="genre[]">Genre(s):</label><br />
         <input type="checkbox" name="genre[]" value="Action">Action<br>
         <input type="checkbox" name="genre[]" value="Adult">Adult<br>
         <input type="checkbox" name="genre[]" value="Adventure">Adventure<br>

@@ -3,7 +3,29 @@
   <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="stylesheet" type="text/css" href="global.css">
 </head>
+<script>
+function checkForm() {
+  alert("Created movie director relationship!");
+}
+</script>
 <body>
+  <?php
+  $servername = "localhost";
+  $username = "cs143";
+  $password = "";
+  $dbname = "CS143";
+  $conn = mysql_connect($servername, $username, $password);
+  mysql_select_db("CS143", $conn);
+  $movies = mysql_query("SELECT id, title, year FROM Movie;", $conn) or exit(mysql_error());
+  $directors = mysql_query("SELECT id, last, first, dob FROM Director;", $conn) or exit(mysql_error());
+  $director = $_GET["director_select"];
+  $movie = $_GET["movie_select"];
+  if ($director != null && $movie != null) {
+    $insert = "INSERT INTO MovieDirector (mid, did) VALUES ($movie, $director);";
+    $res = mysql_query($insert, $conn) or exit(mysql_error());
+    mysql_close($conn);
+  }
+   ?>
   <div>
     <div id="headtag">Movie Database</div>
   </div>
@@ -18,22 +40,14 @@
     Add Movie Director Relationship
   </div>
   <div class="form_wrapper">
-    <form id="page_form" name="addMDRelationship" action="" method="GET">
+    <form id="page_form" name="addMDRelationship" action="" method="GET" onsubmit="return checkForm()">
       <div class="movieselect">
         <label for="movies">Movie</label><br />
         <select name="movie_select">
           <?php
-            $servername = "localhost";
-            $username = "cs143";
-            $password = "";
-            $dbname = "CS143";
-            $conn = mysql_connect($servername, $username, $password);
-            mysql_select_db("CS143", $conn);
-            $res = mysql_query("SELECT id, title, year FROM Movie;", $conn) or exit(mysql_error());
-            while($row = mysql_fetch_assoc($res)) {
+            while($row = mysql_fetch_assoc($movies)) {
               echo "<option value=$row[id]>" . $row['title'] . " (" . $row['year'] . ")" . "</option>";
             }
-            mysql_close($conn);
           ?>
         </select>
       </div>
@@ -41,37 +55,14 @@
         <label for="directors">Director</label><br />
         <select name="director_select">
           <?php
-            $servername = "localhost";
-            $username = "cs143";
-            $password = "";
-            $dbname = "CS143";
-            $conn = mysql_connect($servername, $username, $password);
-            mysql_select_db("CS143", $conn);
-            $res = mysql_query("SELECT id, last, first, dob FROM Director;", $conn) or exit(mysql_error());
-            while($row = mysql_fetch_assoc($res)) {
+            while($row = mysql_fetch_assoc($directors)) {
               echo "<option value=$row[id]>" . $row['first'] . " " . $row['last'] . " (" . $row['dob'] . ")" . "</option>";
             }
-            mysql_close($conn);
           ?>
         </select>
       </div>
       <input class="submit_btn" type="submit" value="Submit">
     </form>
   </div>
-  <?php
-    $director = $_GET["director_select"];
-    $movie = $_GET["movie_select"];
-    if ($director != null && $movie != null) {
-      $servername = "localhost";
-      $username = "cs143";
-      $password = "";
-      $dbname = "CS143";
-      $conn = mysql_connect($servername, $username, $password);
-      mysql_select_db("CS143", $conn);
-      $insert = "INSERT INTO MovieDirector (mid, did) VALUES ($movie, $director);";
-      $res = mysql_query($insert, $conn) or exit(mysql_error());
-      mysql_close($conn);
-    }
-  ?>
 </body>
 </html>
