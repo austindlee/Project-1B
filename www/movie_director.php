@@ -17,45 +17,47 @@
   <div id="page_title">
     Add Movie Director Relationship
   </div>
-  <form id="page_form" name="addMDRelationship" action="" method="GET">
-    <div class="movieselect">
-      <label for="movies">Movie</label><br />
-      <select name="movie_select">
-        <?php
-          $servername = "localhost";
-          $username = "cs143";
-          $password = "";
-          $dbname = "CS143";
-          $conn = mysql_connect($servername, $username, $password);
-          mysql_select_db("CS143", $conn);
-          $res = mysql_query("SELECT id, title, year FROM Movie;", $conn) or exit(mysql_error());
-          while($row = mysql_fetch_assoc($res)) {
-            echo "<option value=$row[id]>" . $row['title'] . " (" . $row['year'] . ")" . "</option>";
-          }
-          mysql_close($conn);
-        ?>
-      </select>
-    </div>
-    <div class="directorselect">
-      <label for="directors">Director</label><br />
-      <select name="director_select">
-        <?php
-          $servername = "localhost";
-          $username = "cs143";
-          $password = "";
-          $dbname = "CS143";
-          $conn = mysql_connect($servername, $username, $password);
-          mysql_select_db("CS143", $conn);
-          $res = mysql_query("SELECT id, last, first, dob FROM Director;", $conn) or exit(mysql_error());
-          while($row = mysql_fetch_assoc($res)) {
-            echo "<option value=$row[id]>" . $row['first'] . " " . $row['last'] . " (" . $row['dob'] . ")" . "</option>";
-          }
-          mysql_close($conn);
-        ?>
-      </select>
-    </div>
-    <input type="submit" value="Submit">
-  </form>
+  <div class="form_wrapper">
+    <form id="page_form" name="addMDRelationship" action="" method="GET">
+      <div class="movieselect">
+        <label for="movies">Movie</label><br />
+        <select name="movie_select">
+          <?php
+            $servername = "localhost";
+            $username = "cs143";
+            $password = "";
+            $dbname = "CS143";
+            $conn = mysql_connect($servername, $username, $password);
+            mysql_select_db("CS143", $conn);
+            $res = mysql_query("SELECT id, title, year FROM Movie;", $conn) or exit(mysql_error());
+            while($row = mysql_fetch_assoc($res)) {
+              echo "<option value=$row[id]>" . $row['title'] . " (" . $row['year'] . ")" . "</option>";
+            }
+            mysql_close($conn);
+          ?>
+        </select>
+      </div>
+      <div class="directorselect">
+        <label for="directors">Director</label><br />
+        <select name="director_select">
+          <?php
+            $servername = "localhost";
+            $username = "cs143";
+            $password = "";
+            $dbname = "CS143";
+            $conn = mysql_connect($servername, $username, $password);
+            mysql_select_db("CS143", $conn);
+            $res = mysql_query("SELECT id, last, first, dob FROM Director;", $conn) or exit(mysql_error());
+            while($row = mysql_fetch_assoc($res)) {
+              echo "<option value=$row[id]>" . $row['first'] . " " . $row['last'] . " (" . $row['dob'] . ")" . "</option>";
+            }
+            mysql_close($conn);
+          ?>
+        </select>
+      </div>
+      <input class="submit_btn" type="submit" value="Submit">
+    </form>
+  </div>
   <?php
     $director = $_GET["director_select"];
     $movie = $_GET["movie_select"];

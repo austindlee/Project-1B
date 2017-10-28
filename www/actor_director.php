@@ -52,27 +52,28 @@ function checkForm() {
     <div id="page_title">
       Add new Actor/Director
     </div>
-    <form id="page_form" name="addPerson" action="" method="GET" onsubmit="return checkForm()">
-      Role: <input type="radio" name="role" value="Actor" checked>Actor <input type="radio" name="role" value="Director">Director<br/>
-      First name:<br>
-      <input type="text" name="firstname" placeholder="Input First Name" maxlength="20">
-      <br>
-      Last name:<br>
-      <input type="text" name="lastname" placeholder="Input Last Name" maxlength="20">
-      <br />
-      Sex: <input type="radio" name="sex" value="Male" checked>Male <input type="radio" name="sex" value="Female">Female<br/>
-      Date of Birth:<br>
-      <input type="text" name="dateofbirth" placeholder="Input Date of Birth">
-      <br />
-      ie: 1997-05-05
-      <br />
-      Date of Death(Optional):<br>
-      <input type="text" name="dateofdeath" placeholder="Input Date of Death">
-      <br />
-      ie: 1997-10-05
-      <br><br>
-      <input type="submit" value="Submit">
-    </form>
+    <div class="form_wrapper">
+      <form id="page_form" name="addPerson" action="" method="GET" onsubmit="return checkForm()">
+        <label for="role">Role:</label><br />
+        <input type="radio" name="role" value="Actor" checked>Actor <input type="radio" name="role" value="Director">Director<br/>
+        <label for="firstname">First Name:</label><br />
+        <input type="text" name="firstname" placeholder="Input First Name" maxlength="20"><br>
+        <label for="lastname">Last Name:</label><br />
+        <input type="text" name="lastname" placeholder="Input Last Name" maxlength="20"><br />
+        <label for="sex">Sex:</label><br />
+        <input type="radio" name="sex" value="Male" checked>Male <input type="radio" name="sex" value="Female">Female<br/>
+        <label for="dateofbirth">Date of Birth:</label><br />
+        <input type="text" name="dateofbirth" placeholder="Input Date of Birth">
+        <br />
+        ie: 1997-05-05
+        <label for="dateofdeath">Date of Death (Optional)</label><br />
+        <input type="text" name="dateofdeath" placeholder="Input Date of Death">
+        <br />
+        ie: 1997-10-05
+        <br><br>
+        <input class="submit_btn" type="submit" value="Submit">
+      </form>
+    </div>
     <?php
     $first_name = $_GET["firstname"];
     $last_name = $_GET["lastname"];
