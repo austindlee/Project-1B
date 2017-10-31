@@ -28,9 +28,10 @@ function checkForm() {
       <div id="headtag">Movie Database</div>
     </div>
     <div id="navbar">
-      <a href="actor_director.php" class="here">Home</a>
+      <a href="index.php" >Search</a>
       <a href="actor_director.php" >Add Actor/Director</a>
       <a href="movie.php" >Add Movie Information</a>
+      <a href="add_review.php" class="here">Add Review</a>
       <a href="movie_actor.php" >Add Movie/Actor Relation</a>
       <a href="movie_director.php" >Add Movie/Director Relation</a>
     </div>

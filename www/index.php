@@ -1,65 +1,127 @@
+<!DOCTYPE html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<body bgcolor=white>
-<div id="nav-placeholder"></div>
+<head>
+	<link rel="stylesheet" type="text/css" href="navbar.css">
+	<link rel="stylesheet" type="text/css" href="global.css">
+</head>
 <script>
-$(function(){
-  $("#nav-placeholder").load("navbar.html");
-});
+	function checkForm() {
+		var searchKey = document.forms["search"]["searchKey"].value;
+		if (searchKey == "" || searchKey == null)
+		{
+			alert("Enter an actor name or a movie title!");
+			return false;
+		}
+	}
 </script>
-<p>
-  Type an SQL query in the following box:
-</p>
-  <form action="" method="POST">
-    <textarea name="query" cols="60" rows="8"><?php if(isset($_POST['query'])) {echo htmlentities ($_POST['query']); }?></textarea>
-    <br />
-    <input type="submit" value="Submit" />
-  </form>
-  <?php
-  $request = "";
-  if (isset($_POST['query']))
-  {
-    $servername = "localhost";
-    $username = "cs143";
-    $password = "";
-    $dbname = "CS143";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-    $request = $_POST['query'];
-    $result = $conn->query($request);
-    $data = array();
-    if ($result) {
-      if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $data[] = $row;
-        }
-        $colNames = array_keys(reset($data));
-        echo "<table border='1'><tr>";
-        foreach($colNames as $colName)
-        {
-          echo "<th>$colName</th>";
-        }
-        echo "</tr>";
-        foreach($data as $row)
-        {
-         echo "<tr>";
-         foreach($colNames as $colName)
-         {
-            echo "<td>".$row[$colName]."</td>";
-         }
-         echo "</tr>";
-        }
-        echo "</table>";
-      } else {
-          echo "0 results";
-      }
-    }
-    $conn->close();
-  }
-  ?>
+<body>
+	<div>
+		<div id="headtag">Search</div>
+	</div>
+	<div id="navbar">
+		<a href="index.php" >Search</a>
+		<a href="actor_director.php" >Add Actor/Director</a>
+		<a href="movie.php" >Add Movie Information</a>
+		<a href="add_review.php" class="here">Add Review</a>
+		<a href="movie_actor.php" >Add Movie/Actor Relation</a>
+		<a href="movie_director.php" >Add Movie/Director Relation</a>
+	</div>
+	<div id="page_title">
+		<!--Search-->
+	</div>
+	<div class="form_wrapper">
+		<form id="page_form" name = "search" action="" method="GET" onsubmit="return checkForm()">
+			<label for="search"> Search:</label><br />
+			<input type="text" name="searchKey" placeholder="Search!" maxlength="50">
+			<input class="submit_btn" type="submit" name="Submit">
+		</form>
+	</div>
+
+	<?php
+	$search = $_GET["searchKey"];
+	if ($search != "") {
+		$servername = "localhost";
+		$username = "cs143";
+		$password = "";
+		$dbname = "CS143";
+		$conn = mysql_connect($servername, $username, $password);
+		if (!$conn)
+			die(mysql_error());
+		if (!mysql_select_db("CS143", $conn))
+			die(mysql_error());
+		$keys = explode(" ", $search);
+
+		// Movies matching the search
+		echo "Matching Movies:";
+		$queryM = "SELECT id, title, year FROM Movie WHERE ";
+		for ($k = 0; $k < count($keys); $k++)
+		{
+			$queryM = $queryM."title LIKE '%".$keys[$k]."%'";
+			if ($k != count($keys) - 1)
+				$queryM = $queryM." AND ";
+			else
+				$queryM = $queryM."ORDER BY title;";
+		}
+
+		$result = mysql_query($queryM);
+		echo "<table class=\"table\">\n";
+		echo "<table border = '1'><tr>";
+		$title = "Title";
+		$year = "Year";
+		echo "<th>$title</th>";
+		echo "<th>$year</th>";
+		echo "</tr>\n";
+		while ($row = mysql_fetch_row($result))
+		{
+			$id = $row[0];
+			$title = $row[1];
+			$year = $row[2];
+			echo "<td><a href=\"./movie_information.php?mid=$id\">$title</a></td>";
+			echo "<td>$year</td>";
+			echo "</tr>\n";
+		}
+		echo "</table>\n";
+		echo "</div>\n";
+		echo "</div>\n";
+		echo "<hr>\n";
+		mysql_free_result($result);
+
+
+		// Actors matching the search
+		echo "<br />\nMatching Actors:";
+		$queryA = "SELECT id, CONCAT(first, ' ', last), dob FROM Actor WHERE ";
+		for ($k = 0; $k < count($keys); $k++)
+		{
+			$queryA = $queryA."(last LIKE '%".$keys[$k]."%' OR first LIKE '%".$keys[$k]."%')";
+			if ($k != count($keys) - 1)
+				$queryA = $queryA." AND ";
+			else
+				$queryA = $queryA." ORDER BY last;";
+		}
+		$resultA = mysql_query($queryA);
+		echo "<table class=\"table\">\n";
+		echo "<table border = '1'><tr>";
+		$name = "Name";
+		$birth = "Date of Birth";
+		echo "<th>$name</th>";
+		echo "<th>$birth</th>";
+		echo "</tr>\n";
+		while ($rowA = mysql_fetch_row($resultA))
+		{
+			$id = $rowA[0];
+			$name = $rowA[1];
+			$dob = $rowA[2];
+			echo "<td><a href=\"./actor_information.php?aid=$id\">$name</a></td>";
+			echo "<td>$dob</td>";
+			echo "</tr>\n";
+		}
+		echo "</table>\n";
+		echo "</div>\n";
+		echo "</div>\n";
+		echo "<hr>\n";
+		mysql_free_result($resultA);
+	}
+	?>
+
 </body>
 </html>

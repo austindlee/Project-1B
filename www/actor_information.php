@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="navbar.css">
-	<link rel="stylesheet" type="text/css" href="gloabl.css">
+	<link rel="stylesheet" type="text/css" href="global.css">
 </head>
 <script>
 	function checkForm() {
@@ -19,17 +19,15 @@
 		<div id="headtag">Actor Information</div>
 	</div>
 	<div id="navbar">
-		<a href="actor_director.php">Home</a>
-		<a href="actor_director.php">Add Actor/Director</a>
-		<a href="movie.php">Add Movie Information</a>
-		<a href="movie_actor.php">Add Movie/Actor Relation</a>
-		<a href="movie_director.php">Add Movie/Director Relation</a>
-		<a href="movie_information.php">Movie Information</a>
-		<a href="actor_information.php" class="here">Actor Information</a>
-		<a href="search.php">Search</a>
+		<a href="index.php" >Search</a>
+		<a href="actor_director.php" >Add Actor/Director</a>
+		<a href="movie.php" >Add Movie Information</a>
+		<a href="add_review.php" class="here">Add Review</a>
+		<a href="movie_actor.php" >Add Movie/Actor Relation</a>
+		<a href="movie_director.php" >Add Movie/Director Relation</a>
 	</div>
-	<div class="container">
-	<form action="./search.php" method="GET">
+	<div class="form_wrapper">
+	<form action="./index.php" method="GET">
 		<input type="text" name="searchKey", placeholder="Search for actors!" />
 		<input class="submit_btn" type="submit" value="Search" />
 	</form>
@@ -67,7 +65,7 @@
 		echo "<td><a href=\"./actor_information.php?aid=$rowA[0]\">$rowA[1]</a></td>";
 		echo "<td>$rowA[2]</td>";
 		echo "<td>$rowA[3]</td>";
-		if (count($row[A]) == 0)
+		if (is_null($rowA[4]))
 			echo "<td>Still Kicken'</td>";
 		else
 			echo "<td>$rowA[4]</td>";

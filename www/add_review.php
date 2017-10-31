@@ -3,20 +3,19 @@
   <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="stylesheet" type="text/css" href="global.css">
 </head>
-<div id="navbar">
-      <a href="actor_director.php">Home</a>
-      <a href="actor_director.php" >Add Actor/Director</a>
-      <a href="add_review.php" class="here">Add Review</a>
-      <a href="movie.php" >Add Movie Information</a>
-      <a href="movie_actor.php" >Add Movie/Actor Relation</a>
-      <a href="movie_director.php" >Add Movie/Director Relation</a>
-      <a href="search.php" >Search</a>
-    </div>
   <body>
 	<div>
 	  <div id="headtag">Add a Review!</div>
 	</div>
-	<div class="container">
+  <div id="navbar">
+    <a href="index.php" >Search</a>
+    <a href="actor_director.php" >Add Actor/Director</a>
+    <a href="movie.php" >Add Movie Information</a>
+    <a href="add_review.php" class="here">Add Review</a>
+    <a href="movie_actor.php" >Add Movie/Actor Relation</a>
+    <a href="movie_director.php" >Add Movie/Director Relation</a>
+  </div>
+	<div class="form_wrapper">
 	<?php
 
 	$mid = $_GET["mid"];
@@ -33,7 +32,7 @@
 	  	mysql_select_db("CS143", $conn);
 		$insert = "INSERT INTO Review (name, time, mid, rating, comment) VALUES ('$name', NOW(), $mid, $rating, '$comment')";
 		if (!$result = mysql_query($insert))
-			die(mysql_error()); 
+			die(mysql_error());
 		echo "Comment added!!";
 		echo "<hr />";
 	}
@@ -61,7 +60,7 @@
 				echo "<option value=\"$mid\" selected>$title ($year)</option>\n";
 			else
 				echo "<option value=\"$mid\">$title ($year)</option>\n";
-		}	
+		}
 		echo "</select><br />\n";
 		mysql_free_result($result);
 		?>
