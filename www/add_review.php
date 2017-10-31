@@ -3,9 +3,18 @@
   <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="stylesheet" type="text/css" href="global.css">
 </head>
+<div id="navbar">
+      <a href="actor_director.php">Home</a>
+      <a href="actor_director.php" >Add Actor/Director</a>
+      <a href="add_review.php" class="here">Add Review</a>
+      <a href="movie.php" >Add Movie Information</a>
+      <a href="movie_actor.php" >Add Movie/Actor Relation</a>
+      <a href="movie_director.php" >Add Movie/Director Relation</a>
+      <a href="search.php" >Search</a>
+    </div>
   <body>
 	<div>
-	  <div id="headtag">Add a Review</div>
+	  <div id="headtag">Add a Review!</div>
 	</div>
 	<div class="container">
 	<?php
@@ -23,7 +32,6 @@
 	  	$conn = mysql_connect($servername, $username, $password);
 	  	mysql_select_db("CS143", $conn);
 		$insert = "INSERT INTO Review (name, time, mid, rating, comment) VALUES ('$name', NOW(), $mid, $rating, '$comment')";
-		echo $insert;
 		if (!$result = mysql_query($insert))
 			die(mysql_error()); 
 		echo "Comment added!!";
@@ -40,15 +48,15 @@
 	  	$dbname = "CS143";
 	  	$conn = mysql_connect($servername, $username, $password);
 	  	mysql_select_db("CS143", $conn);
-		// All movies
-		$queryM = "SELECT * FROM Movie ORDER BY title ASC";
+
+		$queryM = "SELECT title, year, id FROM Movie ORDER BY title ASC";
 		if (!$result = mysql_query($queryM))
 			die(mysql_error());
 		echo "Movie: <select class=\"form-control\" name=\"mid\">\n";
-		while ($row = mysql_fetch_assoc($result)) {
-			$title = $row["title"];
-			$year = $row["year"];
-			$mid = $row["id"];
+		while ($row = mysql_fetch_row($result)) {
+			$title = $row[0];
+			$year = $row[1];
+			$mid = $row[2];
 			if (!empty($_GET["mid"]) && $mid === $_GET["mid"])
 				echo "<option value=\"$mid\" selected>$title ($year)</option>\n";
 			else
@@ -60,7 +68,7 @@
 
 		<div class="row">
 		<div class="col-xs-4">
-		Your Name:	<input type="text" class="form-control" name="name" value="Anonymous" maxlength="20"><br/>
+			Name:<input type="text" class="form-control" name="name" value="Anonymous" maxlength="20"><br/>
 		</div>
 		</div>
 		<label for="rating">Rating(0-5):</label><br />
