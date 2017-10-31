@@ -47,8 +47,6 @@
 	if (!mysql_select_db("CS143", $conn))
 		die(mysql_error());
 	$mid = (int) $_GET["mid"];
-
-
 	## Movie ##
 	$queryM = "SELECT * FROM Movie WHERE id=" . $mid;
 	$resultM = mysql_query($queryM);
@@ -59,8 +57,6 @@
 	echo "MPAA Rating: $row[rating]<br />\n";
 	echo "Producer: $row[company]<br />\n";
 	mysql_free_result($resultM);
-
-
 	## Director ##
 	$queryD = "SELECT DISTINCT CONCAT(first, ' ', last), dob FROM MovieDirector, Director WHERE did=id AND mid=".$mid.";";
 	$resultD = mysql_query($queryD);
@@ -74,7 +70,6 @@
 	}
 	echo "<br />";
 	mysql_free_result($resultD);
-
 	## MovieGenre ##
 	$queryMG = "SELECT genre FROM MovieGenre WHERE mid=" . $mid;	$resultMG = mysql_query($queryMG);
 	if (!$resultMG)
@@ -86,7 +81,6 @@
 	}
 	echo "<br />";
 	mysql_free_result($resultMG);
-
 	## Movie Rating ##
 	$queryR = "SELECT imdb,rot FROM MovieRating WHERE mid=" . $mid;
 	$resultR = mysql_query($queryR);
@@ -96,7 +90,6 @@
 	echo "IMDB Rating: $rowR[0]<br />\n";
 	echo "Rotten Tomatoes Rating: $rowR[1]<br />\n";
 	mysql_free_result($resultR);
-
 	## SALES ##
 	$queryS = "SELECT ticketsSold, totalIncome FROM Sales WHERE mid=" . $mid;
 	$resultS = mysql_query($queryS);
@@ -106,7 +99,6 @@
 	echo "Tickets Sold: $rowS[0]<br />\n";
 	echo "Total Income: $rowS[1]<br />\n";
 	mysql_free_result($resultS);
-
 	## Actors in the Movie ##
 	$queryMA = "SELECT id, CONCAT(first, ' ', last), role FROM Actor, MovieActor WHERE aid = id AND mid=".$mid;
 	$resultMA = mysql_query($queryMA);
@@ -128,8 +120,6 @@
 	}	
 	echo "</table>\n";
 	mysql_free_result($resultMA);
-
-
 	## Reviews ##
 	$queryR = "SELECT AVG(rating), COUNT(rating) FROM Review WHERE mid=" . $mid;
 	$resultR = mysql_query($queryR);
