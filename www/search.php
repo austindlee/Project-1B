@@ -100,7 +100,6 @@
 			else
 				$queryA = $queryA." ORDER BY last;";
 		}
-		print $queryA;
 		$resultA = mysql_query($queryA);
 		echo "<table class=\"table\">\n";
 		echo "<table border = '1'><tr>";
