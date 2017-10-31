@@ -93,13 +93,14 @@
 		echo "<br />\nMatching Actors:";
 		$queryA = "SELECT id, CONCAT(first, ' ', last), dob FROM Actor WHERE ";
 		for ($k = 0; $k < count($keys); $k++)
-	{
-		$queryA = $queryA."last LIKE '%".$keys[$k]."%' OR first LIKE '%".$keys[$k]."%'";
-		if ($k != count($keys) - 1)
-			$queryA = $queryA." AND ";
-		else
-			$queryA = $queryA."ORDER BY last;";
-	}
+		{
+			$queryA = $queryA."(last LIKE '%".$keys[$k]."%' OR first LIKE '%".$keys[$k]."%')";
+			if ($k != count($keys) - 1)
+				$queryA = $queryA." AND ";
+			else
+				$queryA = $queryA." ORDER BY last;";
+		}
+		print $queryA;
 		$resultA = mysql_query($queryA);
 		echo "<table class=\"table\">\n";
 		echo "<table border = '1'><tr>";
